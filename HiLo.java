@@ -19,52 +19,52 @@ public class HiLo
 	 */
 	public static void main(String[] args) 
 	{
-		Scanner _scan = new Scanner(System.in);
-		//Generate random number
-		//random generates number between 0.0 and .999999
-		int _theNumber = (int)(Math.random() * 100 + 1);
-		int _guess = 0; //user's guess
-		int _maxGuesses = 3; //max number of attempts to guess number
-		int _currentGuesses = 1; //guess counter
-		String _userPrompt = "Guess a number between 1 and 100. You have MAXGUESSES attempt(s):"; //prompt for user to guess number
-		String _playAgain = ""; //response indicating if user wants to play again
-
-		//Debug
-		//System.out.println(_theNumber);
-		
-		//do while user wants to play
-		do
-		{		
-			//prompt user to guess again as long at their guess is incorrect and less the max allowed guesses
-			while (_guess != _theNumber && _currentGuesses <= _maxGuesses)
-			{
-				_guess = GetGuess(_userPrompt.replace("MAXGUESSES", Integer.toString(_maxGuesses - _currentGuesses + 1)), _scan);
-
-				if(_guess < _theNumber)
-					System.out.println(_guess + " is too low. Try again. If you dare....");
-				else if (_guess > _theNumber)
-					System.out.println(_guess + " is too high. Try again. If you dare....");
-				else
-					System.out.println(_guess + " is correct!! You win...NOTHING!");
-
-				_currentGuesses++; //increment current guess count
-			}
-
+		try(Scanner _scan = new Scanner(System.in);)
+		{
+			//Generate random number
+			//random generates number between 0.0 and .999999
+			int _theNumber = (int)(Math.random() * 100 + 1);
+			int _guess = 0; //user's guess
+			int _maxGuesses = 3; //max number of attempts to guess number
+			int _currentGuesses = 1; //guess counter
+			String _userPrompt = "Guess a number between 1 and 100. You have MAXGUESSES attempt(s):"; //prompt for user to guess number
+			String _playAgain = ""; //response indicating if user wants to play again
+	
 			//Debug
-			//System.out.println("current guess value: " + _currentGuesses);
-
-			if (_currentGuesses >=_maxGuesses)
-				System.out.println("Max guess attempts reached");
-
-			//ask user if they want to play again
-			System.out.println("Would you like to play again (y/n)?");
-			_playAgain = _scan.next();
+			//System.out.println(_theNumber);
+			
+			//do while user wants to play
+			do
+			{		
+				//prompt user to guess again as long at their guess is incorrect and less the max allowed guesses
+				while (_guess != _theNumber && _currentGuesses <= _maxGuesses)
+				{
+					_guess = GetGuess(_userPrompt.replace("MAXGUESSES", Integer.toString(_maxGuesses - _currentGuesses + 1)), _scan);
+	
+					if(_guess < _theNumber)
+						System.out.println(_guess + " is too low. Try again. If you dare....");
+					else if (_guess > _theNumber)
+						System.out.println(_guess + " is too high. Try again. If you dare....");
+					else
+						System.out.println(_guess + " is correct!! You win...NOTHING!");
+	
+					_currentGuesses++; //increment current guess count
+				}
+	
+				//Debug
+				//System.out.println("current guess value: " + _currentGuesses);
+	
+				if (_currentGuesses >=_maxGuesses)
+					System.out.println("Max guess attempts reached");
+	
+				//ask user if they want to play again
+				System.out.println("Would you like to play again (y/n)?");
+				_playAgain = _scan.next();
+			}
+			while (_playAgain.equalsIgnoreCase("y"));
+	
+			System.out.println("Thank you for playing and good day!");
 		}
-		while (_playAgain.equalsIgnoreCase("y"));
-
-		System.out.println("Thank you for playing and good day!");
-		
-		//_scan.close();
 	}
 
 	public static int GetGuess(String UserPrompt, Scanner Scan)
